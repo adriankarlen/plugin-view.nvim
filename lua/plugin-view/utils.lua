@@ -3,13 +3,28 @@ local config = require "plugin-view.config"
 ---@class plugin-view.utils
 local M = {}
 
----@return table
 M.create_floating_win = function()
   local buf = vim.api.nvim_create_buf(false, true)
-  local width = math.floor(vim.o.columns * config.options.width)
-  local height = math.floor(vim.o.lines * config.options.height)
+
+  local function calculate_dimension(dim_option, total_cells)
+    -- Add validation
+    if type(dim_option) ~= "table" or not dim_option.type or not dim_option.value then
+      -- Fallback to treating it as a relative value for backward compatibility
+      return math.floor(total_cells * (type(dim_option) == "number" and dim_option or 0.3))
+    end
+
+    if dim_option.type == "relative" then
+      return math.floor(total_cells * dim_option.value)
+    else -- "cell"
+      return dim_option.value
+    end
+  end
+
+  local width = calculate_dimension(config.options.width, vim.o.columns)
+  local height = calculate_dimension(config.options.height, vim.o.lines)
   local row = math.floor((vim.o.lines - height) / 2 - 1)
   local col = math.floor((vim.o.columns - width) / 2)
+
   local opts = {
     style = "minimal",
     relative = "editor",
