@@ -4,10 +4,12 @@ local M = {}
 
 ---@class plugin-view.options
 M.options = {
-  border = "single",
-  width = { type = "cell", value = 84 }, -- matches your content width
-  height = { type = "cell", value = 15 },
-  title = "Plugins",
+  win = {
+    border = "single",
+    width = { type = "cell", value = 84 }, -- matches your content width
+    height = { type = "cell", value = 15 },
+    title = "Plugins",
+  }
 }
 
 ---@param opts plugin-view.options

@@ -20,8 +20,8 @@ M.create_floating_win = function()
     end
   end
 
-  local width = calculate_dimension(config.options.width, vim.o.columns)
-  local height = calculate_dimension(config.options.height, vim.o.lines)
+  local width = calculate_dimension(config.options.win.width, vim.o.columns)
+  local height = calculate_dimension(config.options.win.height, vim.o.lines)
   local row = math.floor((vim.o.lines - height) / 2 - 1)
   local col = math.floor((vim.o.columns - width) / 2)
 
@@ -32,8 +32,8 @@ M.create_floating_win = function()
     height = height,
     row = row,
     col = col,
-    border = config.options.border,
-    title = config.options.title,
+    border = config.options.win.border,
+    title = config.options.win.title,
     title_pos = "left",
   }
   local win = vim.api.nvim_open_win(buf, true, opts)
