@@ -5,6 +5,9 @@ local M = {}
 
 M.create_floating_win = function()
   local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+  vim.api.nvim_set_option_value("readonly", true, { buf = buf })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 
   local function calculate_dimension(dim_option, total_cells)
     -- Add validation
