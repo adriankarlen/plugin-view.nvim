@@ -37,9 +37,6 @@ M.create_floating_win = function()
     title_pos = "left",
   }
   local win = vim.api.nvim_open_win(buf, true, opts)
-  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-  vim.api.nvim_set_option_value("readonly", true, { buf = buf })
-  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
   return { buf = buf, win = win }
 end
 
@@ -125,6 +122,11 @@ M.populate_buf = function(buf, plugins)
       end_col = name_width + version_width + 6,
     })
   end
+
+  -- Set buffer options
+  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+  vim.api.nvim_set_option_value("readonly", true, { buf = buf })
+  vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
 end
 
 M.add_keymap = function(buf, mode, key, callback)
